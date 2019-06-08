@@ -1,11 +1,21 @@
 <p>
-  <strong>Publication datetime:</strong>
+  <strong>Published at:</strong>
   <%= @post.publication_datetime %>
+</p>
+
+<p>
+  <strong>Tweetable?</strong>
+  <%= @post.tweetable? %>
 </p>
 
 <p>
   <strong>Content:</strong>
   <%= @post.content %>
+</p>
+
+<p>
+  <strong>Source:</strong>
+  <%= @post.source %>
 </p>
 
 <%= link_to 'Edit', edit_post_path(@post) %> |
