@@ -4,11 +4,16 @@ namespace :facebook do
   task :import_posts, [:path] => :environment do |t, args|
     doc = File.open(args[:path]) { |f| Nokogiri::HTML(f) }
     status_updates = doc.xpath('//div[contains(text(), "actualizó su estado")]/parent::div').map { |div|
-      {
-        content: div.css("._2pin").text,
-        publication_datetime: parse_spanish_date(div.css("._2lem").text)
-      }
-    }
+      content = div.css("._2pin").text
+
+      unless content.empty?
+        {
+          content: content,
+          publication_datetime: parse_spanish_date(div.css("._2lem").text),
+          source: div
+        }
+      end
+    }.compact
 
     bar = ProgressBar.new(status_updates.count)
     Post.create(status_updates) do |_|
@@ -26,7 +31,7 @@ namespace :facebook do
       junio:      "june",
       julio:      "july",
       agosto:     "august",
-      septiembre: "septembre",
+      septiembre: "september",
       octubre:    "october",
       noviembre:  "november",
       diciembre:  "december",
