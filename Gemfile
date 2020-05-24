@@ -8,7 +8,7 @@ gem 'rails', '~> 5.2.1'
 # Use postgresql as the database for Active Record
 gem 'pg', '>= 0.18', '< 2.0'
 # Use Puma as the app server
-gem 'puma', '~> 3.11'
+gem "puma", ">= 3.12.6"
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
@@ -36,12 +36,17 @@ gem 'jbuilder', '~> 2.5'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
 
-gem 'devise'
-gem 'nokogiri'
+gem "devise", ">= 4.7.1"
+gem "nokogiri", ">= 1.10.8"
 gem 'progress_bar'
 gem 'kaminari'
 gem 'kaminari-bootstrap'
 gem 'acts-as-taggable-on', '~> 6.0'
+
+gem "actionview", ">= 5.2.4.2"
+gem "rake", ">= 12.3.3"
+gem "rack", ">= 2.0.8"
+gem "loofah", ">= 2.3.1"
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
