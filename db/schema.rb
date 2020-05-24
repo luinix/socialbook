@@ -18,6 +18,9 @@ ActiveRecord::Schema.define(version: 2019_06_08_173936) do
   create_table "posts", force: :cascade do |t|
     t.datetime "publication_datetime"
     t.text "content"
+    t.boolean "ready", default: false
+    t.boolean "tweetable", default: false
+    t.boolean "tweeted", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "source"

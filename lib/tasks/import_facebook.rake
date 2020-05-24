@@ -2,6 +2,8 @@ require 'progress_bar'
 
 namespace :facebook do
   task :import_posts, [:path] => :environment do |t, args|
+    MAX_TWEET_LENGTH = 280
+
     doc = File.open(args[:path]) { |f| Nokogiri::HTML(f) }
     status_updates = doc.xpath('//div[contains(text(), "actualizó su estado")]/parent::div').map { |div|
       content = div.css("._2pin").text
@@ -10,7 +12,8 @@ namespace :facebook do
         {
           content: content,
           publication_datetime: parse_spanish_date(div.css("._2lem").text),
-          source: div
+          source: div,
+          tweetable: content.length <= MAX_TWEET_LENGTH
         }
       end
     }.compact
