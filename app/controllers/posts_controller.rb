@@ -4,7 +4,22 @@ class PostsController < ApplicationController
   # GET /posts
   # GET /posts.json
   def index
-    @posts = Post.order(publication_datetime: :desc).page params[:page]
+    @posts = Post.search(params[:search]).order(publication_datetime: :desc).page params[:page]
+  end
+
+  def pending
+    @posts = Post.pending.search(params[:search]).order(publication_datetime: :desc).page params[:page]
+    render :index
+  end
+
+  def ready
+    @posts = Post.ready.search(params[:search]).order(publication_datetime: :desc).page params[:page]
+    render :index
+  end
+
+  def ready_for_twitter
+    @posts = Post.ready_for_twitter.search(params[:search]).order(publication_datetime: :desc).page params[:page]
+    render :index
   end
 
   # GET /posts/1
@@ -28,6 +43,12 @@ class PostsController < ApplicationController
         format.json { render json: @post.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  def destroy
+    @post.destroy
+
+    redirect_to action: :index
   end
 
   private
